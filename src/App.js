@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import NavBar from './components/NavBar';
-import Home from './pages/Home';
+import Current from './pages/Current';
+import Forecast from './pages/Forecast';
 
 const theme = createMuiTheme({
   palette: {
@@ -27,7 +28,8 @@ function App() {
       <ThemeProvider theme={theme}>
         <NavBar />
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Current} />
+          <Route exact path="/forecast" component={Forecast} />
         </Switch>
       </ThemeProvider>
     </BrowserRouter>
