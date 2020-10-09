@@ -8,7 +8,7 @@ const getCurrentWeather = async (city) => {
   return response.data;
 };
 
-const getForecasttWeather = async (city) => {
+const getForecastWeather = async (city) => {
   let query = `${serverURL}/forecast`;
   query = city ? `${query}/${city}` : query;
   const response = await axios.get(query);
@@ -17,5 +17,5 @@ const getForecasttWeather = async (city) => {
 
 export default {
   getCurrentWeather,
-  getForecasttWeather,
+  getForecastWeather,
 };

@@ -2,7 +2,11 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCurrentWeather } from '../redux/slices/weatherSlice';
+import {
+  getCurrentWeather,
+  getForecastWeather,
+} from '../redux/slices/weatherSlice';
+import WeatherCard from '../components/WeatherCard';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,15 +30,15 @@ const CurrentWeather = () => {
 
   useEffect(() => {
     dispatch(getCurrentWeather());
-    console.log('doing distpach...');
+    dispatch(getForecastWeather());
   }, []);
 
-  const currentLocal = useSelector((state) => state.weather.current.local);
+  const localWeather = useSelector((state) => state.weather.current.local);
 
   return (
     <Container className={classes.root}>
       <Typography variant="h5">Tu clima:</Typography>
-      <Typography variant="h5">{JSON.stringify(currentLocal)}</Typography>
+      <WeatherCard weather={localWeather} />
     </Container>
   );
 };
