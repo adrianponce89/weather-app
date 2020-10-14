@@ -44,6 +44,7 @@ export const possibleCities = [
   { title: 'Londres', value: 'Londres' },
   { title: 'Tokio', value: 'Tokio' },
   { title: 'California', value: 'California' },
+  { title: 'Montevideo', value: 'Montevideo' },
 ];
 
 const CurrentWeather = () => {
