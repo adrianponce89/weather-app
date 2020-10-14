@@ -5,6 +5,8 @@ import get from 'lodash/get';
 import { celsiusFormat } from '../utils';
 import LoadingWrapper from './LoadingWrapper';
 
+import ForecastList from '../components/ForecastList';
+
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -15,10 +17,16 @@ const useStyles = makeStyles({
   content: {
     flex: 1,
     display: 'flex',
-    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   },
+  current: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+  },
+  forecast: {},
   main: {
     display: 'flex',
     justifyContent: 'center',
@@ -36,7 +44,7 @@ const useStyles = makeStyles({
   },
 });
 
-const WeatherCard = ({ weather }) => {
+const WeatherCard = ({ weather, forecast }) => {
   const classes = useStyles();
 
   const loading = !weather || weather.loading;
@@ -46,11 +54,6 @@ const WeatherCard = ({ weather }) => {
   const { temp, feels_like, temp_min, temp_max } =
     get(weather, 'data.current.main') || {};
 
-  const fTemp = celsiusFormat(temp);
-  const fFeelsLike = celsiusFormat(feels_like);
-  const fTempMin = celsiusFormat(temp_min);
-  const fTempMax = celsiusFormat(temp_max);
-
   return (
     <Card className={classes.root} elevation={4}>
       <LoadingWrapper
@@ -58,28 +61,42 @@ const WeatherCard = ({ weather }) => {
         loading={loading}
         className={classes.content}
       >
-        <Typography className={classes.city} color="textSecondary" gutterBottom>
-          {city}
-        </Typography>
+        <Grid container sm={12}>
+          <Grid item sm={4} className={classes.current}>
+            <Typography
+              className={classes.city}
+              color="textSecondary"
+              gutterBottom
+            >
+              {city}
+            </Typography>
 
-        <Grid className={classes.main}>
-          <img src={`http://openweathermap.org/img/wn/${iconCode}@2x.png`} />
+            <Grid className={classes.main}>
+              <img
+                src={`http://openweathermap.org/img/wn/${iconCode}@2x.png`}
+              />
 
-          <Typography
-            className={classes.mainTemp}
-            color="textPrimary"
-            gutterBottom
-          >
-            {fTemp}
-          </Typography>
+              <Typography
+                className={classes.mainTemp}
+                color="textPrimary"
+                gutterBottom
+              >
+                {celsiusFormat(temp)}
+              </Typography>
+            </Grid>
+            <Typography
+              className={classes.title}
+              color="textSecondary"
+              gutterBottom
+            >
+              {celsiusFormat(temp_min)} / {celsiusFormat(temp_max)} | Sensación
+              Termica {celsiusFormat(feels_like)}
+            </Typography>
+          </Grid>
+          <Grid item sm={8} className={classes.forecast}>
+            <ForecastList forecast={forecast} />
+          </Grid>
         </Grid>
-        <Typography
-          className={classes.title}
-          color="textSecondary"
-          gutterBottom
-        >
-          {fTempMin} / {fTempMax} | Sensación Termica {fFeelsLike}
-        </Typography>
       </LoadingWrapper>
     </Card>
   );

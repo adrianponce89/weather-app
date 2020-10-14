@@ -1,11 +1,11 @@
 import React from 'react';
 import { CircularProgress } from '@material-ui/core';
 
-const LoadingWrapper = ({ loading, component, children, ...otherProps }) => {
+const LoadingWrapper = ({ loading, children, ...otherProps }) => {
   return (
-    <component {...otherProps}>
+    <div {...otherProps}>
       {loading ? <CircularProgress /> : <>{children}</>}
-    </component>
+    </div>
   );
 };
 export default LoadingWrapper;
