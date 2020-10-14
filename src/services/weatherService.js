@@ -1,5 +1,6 @@
 import axios from 'axios';
-const serverURL = process.env.REACT_APP_SERVER_URL;
+const serverURL =
+  process.env.REACT_APP_SERVER_URL || 'http://localhost:8000/v1';
 
 const getCurrentWeather = async (city) => {
   let query = `${serverURL}/current`;
